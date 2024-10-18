@@ -8,15 +8,13 @@ api: 1.21.1-R0.1-SNAPSHOT
 commands:
   coi:
     description: プレイヤーのインベントリをロールバックするコマンド。
-    usage: >
-      /coi rollback t:[time] (optional: r:[radius] u:[player])
   coiundo:
-    description: 前回のロールバックを取り消すコマンド。
-    usage: /coi undo
+    description: プレイヤーのインベントリを元に戻すコマンド。
 permissions:
   coi.rollback:
     description: ロールバックコマンドを実行するための権限。
     default: op
   coi.undo:
-    description: 前回のロールバックを取り消すための権限。
+    description: 元に戻すコマンドを実行するための権限。
     default: op
+
