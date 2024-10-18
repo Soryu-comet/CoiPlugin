@@ -1,5 +1,5 @@
 name: CoiPlugin
-version: 1.0-beta
+version: 1.0-RELEASE
 main: com.example.Coi.CoiPlugin
 author: Soryu-haruma(Asl, haruma9012kirby)
 description: プレイヤーのインベントリを管理し、ロールバック機能を提供するプラグイン。
