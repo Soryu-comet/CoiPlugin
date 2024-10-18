@@ -21,7 +21,7 @@ public class CoiPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
         getCommand("coi").setExecutor(new RollbackCommand(this));
         getCommand("coi").setTabCompleter(new TabCompleter(this));
-        getCommand("coiundo").setExecutor(new UndoCommand(this));
+        getCommand("coiundo").setExecutor(new UndoCommand(new RollbackCommand(this), this));
 
         getLogger().info("CoiPlugin has been enabled.");
     }
@@ -50,7 +50,7 @@ public class CoiPlugin extends JavaPlugin {
         } catch (Exception e) {
             getLogger().severe(String.format("Failed to initialize the database: %s", e.getMessage()));
             getLogger().severe(String.format("Exception details: %s", e.toString()));
-            getServer().getPluginManager().disablePlugin(this);  // プラグインを無効化する
+            getServer().getPluginManager().disablePlugin(this);
         }
     }
 }
