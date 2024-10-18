@@ -22,9 +22,10 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> suggestions = new ArrayList<>();
         if (args.length == 1) {
-            if (args[0].equals("t")) {
+            if (args[0].isEmpty() || "t:".startsWith(args[0])) {
                 suggestions.add("t:");
-            } else if (args[0].equals("r")) {
+            }
+            if (args[0].equals("r")) {
                 suggestions.add("r:");
             } else if (args[0].startsWith("t:")) {
                 String numberPart = args[0].substring(2);
@@ -32,6 +33,8 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
                     for (int i = 0; i <= 9; i++) {
                         suggestions.add("t:" + i);
                     }
+                } else if (numberPart.matches("\\d+[smhdw]")) {
+                    return suggestions; // t:[数字][アルファベット]まで入力された場合、TAB補完をやめる
                 } else {
                     suggestions.add("t:" + numberPart + "s");
                     suggestions.add("t:" + numberPart + "m");
