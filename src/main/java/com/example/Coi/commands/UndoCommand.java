@@ -59,7 +59,7 @@ public class UndoCommand implements CommandExecutor {
     private void sendUsageMessage(CommandSender sender) {
         sender.sendMessage("§b§m------§r");
         sender.sendMessage("§bCoi §7- §r使用方法:");
-        sender.sendMessage("§bCoi §7- §r/undo");
+        sender.sendMessage("§bCoi §7- §r/coiundo");
         sender.sendMessage("§b§m------§r");
     }
 }
