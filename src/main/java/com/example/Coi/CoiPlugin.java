@@ -17,17 +17,11 @@ public class CoiPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        
-        // データベースのセットアップ
         setupDatabase();
-        
-        // イベントリスナーの登録
         getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
-        
-        // コマンドの登録
         getCommand("coi").setExecutor(new RollbackCommand(this));
         getCommand("coi").setTabCompleter(new TabCompleter(this));
-        getCommand("coi undo").setExecutor(new UndoCommand(this));
+        getCommand("coiundo").setExecutor(new UndoCommand(this));
 
         getLogger().info("CoiPlugin has been enabled.");
     }
