@@ -1,0 +1,17 @@
+# データベース設定
+useMySQL: false  # trueにするとMySQLを使用、falseならSQLiteを使用
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "minecraft"
+  username: "root"
+  password: "password"
+
+# ロールバック設定
+rollback:
+  # ロールバックできる最大時間 (例えば1週間)
+  max-time: "1w"
+  # 1回のロールバックで処理できる最大のプレイヤー数
+  max-players: 100
+  # ロールバックの範囲を設定 (デフォルトでは無制限)
+  default-radius: -1  # -1は範囲制限なし

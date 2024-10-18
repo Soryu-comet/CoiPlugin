@@ -1,0 +1,22 @@
+name: CoiPlugin
+version: 1.0-beta
+main: com.example.Coi.CoiPlugin
+author: Soryu-haruma(Asl, haruma9012kirby)
+description: プレイヤーのインベントリを管理し、ロールバック機能を提供するプラグイン。
+api: 1.21.1-R0.1-SNAPSHOT
+
+commands:
+  coi:
+    description: インベントリのロールバックを行うコマンド。
+    usage: /<command> t:[time] r:[reason] u:[player]
+    aliases: [coirollback]
+  coi undo:
+    description: 前回のロールバックを取り消すコマンド。
+    usage: /<command>
+permissions:
+  coi.rollback:
+    description: ロールバックコマンドを実行するための権限。
+    default: op
+  coi.undo:
+    description: 前回のロールバックを取り消すための権限。
+    default: op
