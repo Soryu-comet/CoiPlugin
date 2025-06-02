@@ -1,5 +1,6 @@
 package com.example.Coi.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -8,6 +9,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.example.Coi.CoiPlugin;
 import com.example.Coi.models.PlayerInventoryState;
+
+import java.util.List;
+import java.util.UUID;
+
 // インベントリリスナー
 public class InventoryListener implements Listener {
     private final CoiPlugin plugin;
@@ -19,29 +24,53 @@ public class InventoryListener implements Listener {
     @EventHandler
     public void onInventoryChange(InventoryClickEvent event) {
         // プレイヤーのインベントリが変更されたときの処理
-        plugin.getDatabaseManager().savePlayerInventory( // プレイヤーのインベントリを保存
-            event.getWhoClicked().getUniqueId(), // プレイヤーのUUID
-            event.getWhoClicked().getName(), // プレイヤーの名前
-            new PlayerInventoryState(System.currentTimeMillis(), event.getWhoClicked().getInventory().getContents(), event.getWhoClicked().getName()) // プレイヤーのインベントリ状態
+        PlayerInventoryState state = new PlayerInventoryState(
+                System.currentTimeMillis(),
+                event.getWhoClicked().getInventory().getContents(),
+                event.getWhoClicked().getName()
         );
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            plugin.getDatabaseManager().savePlayerInventory(
+                    event.getWhoClicked().getUniqueId(),
+                    event.getWhoClicked().getName(),
+                    state
+            );
+        });
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         // プレイヤーがサーバーに入った時の処理
-        plugin.getDatabaseManager().getPlayerInventory(
-            event.getPlayer().getUniqueId(),
-            System.currentTimeMillis()
-        );
+        UUID uuid = event.getPlayer().getUniqueId();
+        long now = System.currentTimeMillis();
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            List<PlayerInventoryState> inventories = plugin.getDatabaseManager().getPlayerInventory(uuid, now);
+            if (!inventories.isEmpty()) {
+                PlayerInventoryState latest = inventories.get(0);
+
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    event.getPlayer().getInventory().setContents(latest.getInventoryContents());
+                });
+            }
+        });
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        // プレイヤーがサーバーを退出した時の処理
-        plugin.getDatabaseManager().savePlayerInventory(
-            event.getPlayer().getUniqueId(),
-            event.getPlayer().getName(),
-            new PlayerInventoryState(System.currentTimeMillis(), event.getPlayer().getInventory().getContents(), event.getPlayer().getName())
+        PlayerInventoryState state = new PlayerInventoryState(
+                System.currentTimeMillis(),
+                event.getPlayer().getInventory().getContents(),
+                event.getPlayer().getName()
         );
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            plugin.getDatabaseManager().savePlayerInventory(
+                    event.getPlayer().getUniqueId(),
+                    event.getPlayer().getName(),
+                    state
+            );
+        });
     }
 }
