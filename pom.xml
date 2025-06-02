@@ -5,7 +5,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>CoiPlugin</artifactId>
-    <version>1.0-RELEASE</version>
+    <version>1.0.1-BETA</version>
     <packaging>jar</packaging>
 
     <name>CoiPlugin</name>
@@ -30,4 +30,4 @@
         </dependency>
     </dependencies>
 </project>
-<!-- Author: Soryu-haruma(Asl,haruma9012kirby) -->
+<!-- Author: Soryu-comet/そぉりゅぅ -->

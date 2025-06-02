@@ -1,15 +1,31 @@
-# データベース設定
-useMySQL: false  # trueにするとMySQLを使用、falseならSQLiteを使用
+# Coi - Core
+# Configuration for CoiPlugin
+
+# Database settings
+# useMySQL: true to use MySQL, false to use SQLite
+useMySQL: false
+
+# MySQL specific settings (only used if useMySQL is true)
 mysql:
   host: "localhost"
   port: 3306
-  database: "minecraft"
-  username: "root"
+  database: "coi_database"
+  username: "coi_user"
   password: "password"
 
-# ロールバック設定
+# Rollback settings
+# rollback.max-history: No longer used directly by CoiPlugin for in-memory history.
+# History is now stored in the database without a fixed limit from this config.
+# Future versions might re-introduce pruning based on database size or age.
 rollback:
-  max-history: 5  # ロールバック履歴の最大保存数
-  max-time: "1w" # ロールバックできる最大時間 (例えば1週間)
-  max-players: 100  # 1回のロールバックで処理できる最大のプレイヤー数
-  default-radius: -1  # -1は範囲制限なし
+  max-history: 5 # This setting is currently not actively used by the plugin for history limits.
+
+# Saving settings
+saving:
+  # Periodic Inventory Saving
+  # Enable or disable automatic periodic saving of online players' inventories.
+  periodic_save:
+    enabled: false
+    # Interval in minutes for periodic inventory saving.
+    # Minimum value is effectively 1 minute if enabled.
+    interval_minutes: 15
