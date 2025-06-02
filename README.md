@@ -49,7 +49,7 @@ CoiPluginの設定ファイルは、`config.yml`という名前で保存され�
 当プラグインは、[MITライセンス](LICENSE)の下で配布されています。
 
 
-`Author: Soryu-haruma(Asl, haruma9012kirby)`
+`Author: Soryu-comet/そぉりゅぅ`
 
 
 
